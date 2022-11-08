@@ -1,7 +1,7 @@
 
 ### Pylint results
 
-After making necessary changes we got the overall pylint score of the codebase from 6 to 8.23.
+After making necessary changes we improved the overall pylint score of the codebase from 6 to 8.23.
 
 # Code for the paper "A Deep Generative Model for Fragment-Based Molecule Generation" (AISTATS 2020)
 
