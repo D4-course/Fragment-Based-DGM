@@ -1,0 +1,13 @@
+FROM continuumio/miniconda3
+
+WORKDIR /usr/src/app
+
+#Create the environment
+COPY ./environment_frag.yml environment.yml
+RUN conda env create -f environment.yml
+
+COPY ./fragment_based_dgm ./p
+
+SHELL ["conda", "run", "-n", "aistats2020", "/bin/","bash", "-c"]
+
+WORKDIR p
