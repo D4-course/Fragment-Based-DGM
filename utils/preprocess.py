@@ -84,6 +84,7 @@ def read_and_clean_dataset(info):
     dataset = pd.read_csv(
         raw_path / info['filename'],
         index_col=info['index_col'])
+    """ Preprocessing based on dataset chosen """
 
     if info['drop'] != []:
         dataset = dataset.drop(info['drop'], axis=1)
@@ -106,9 +107,9 @@ def read_and_clean_dataset(info):
         dataset.smiles = correct_smiles.smiles
         dataset = dataset.sample(frac=1, random_state=42)
 
-    smiles = dataset.smiles.tolist()
-    dataset.smiles = [canonicalize(smi, clear_stereo=True) for smi in smiles]
-    dataset = dataset[dataset.smiles.notnull()].reset_index(drop=True)
+    smiles = dataset.smiles.tolist()   # Pulling the smiles representation column from the dataset
+    dataset.smiles = [canonicalize(smi, clear_stereo=True) for smi in smiles]   # Canonicalizing the smiles representation of the molecule by removing an stereochemistry in the representation
+    dataset = dataset[dataset.smiles.notnull()].reset_index(drop=True)   # Cleaning rows in the datset with empty cells 
 
     return dataset
 
@@ -144,7 +145,7 @@ def preprocess_dataset(name, n_jobs):
     info = get_dataset_info(name)
     print(info)
     dataset = read_and_clean_dataset(info)
-    dataset = add_atom_counts(dataset, info, n_jobs)
+    dataset = add_atom_counts(dataset, info, n_jobs)   # Next three functions count the number of atoms, rings and bonds in each of the molecule and concatenate it to the dataset, this is the most time taking part of the preprocess stage
     dataset = add_bond_counts(dataset, info, n_jobs)
     dataset = add_ring_counts(dataset, info, n_jobs)
 
@@ -152,6 +153,6 @@ def preprocess_dataset(name, n_jobs):
         if prop not in dataset.columns:
             dataset = add_property(dataset, prop, n_jobs)
 
-    dataset = add_fragments(dataset, info, n_jobs)
+    dataset = add_fragments(dataset, info, n_jobs)   # generate fragments from the molecules of the dataset and concatenated them to it
 
-    save_dataset(dataset, info)
+    save_dataset(dataset, info)   # Saves the processed dataset by splitting it into test and train where test contains all the fragments and train contains all the molecules with min_length <= length <= max_length
