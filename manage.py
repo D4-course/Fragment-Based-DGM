@@ -55,31 +55,31 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
     command = args.pop('command')
 
-    if command == 'preprocess':
+    if command == 'preprocess':   # this step downloads the requested datset and processes it by adding additional information for each molecule like fragments, no of bonds, no of rings and no of bonds 
         dataset = args.pop('dataset')
         n_jobs = args.pop('n_jobs')
         preprocess_dataset(dataset, n_jobs)
 
-    elif command == 'train':
+    elif command == 'train':   # this step takes the postprocessed datset as input and does the training part, where embeddings are done and each molecule is sent through the VAE, num_epochs = 20
         config = Config(args.pop('dataset'), **args)
         train_model(config)
 
-    elif command == 'resume':
+    elif command == 'resume':   # this step is used for resuming training in the case of pre-eptively stopping the training process
         run_dir = args.pop('run_dir')
         config = Config.load(run_dir, **args)
         resume_model(config)
 
-    elif command == 'sample':
+    elif command == 'sample':   # Generates sample molecules from the decoder part of the trained model
         args.update(use_gpu=False)
         run_dir = args.pop('run_dir')
         config = Config.load(run_dir, **args)
         sample_model(config)
 
-    elif command == 'postprocess':
+    elif command == 'postprocess':   # Generates statistics from sampled data and aggregates multiple sample files and the test data in one big file for plotting
         run_dir = args.pop('run_dir')
         config = Config.load(run_dir, **args)
         postprocess_samples(config, **args)
 
-    elif command == 'plot':
+    elif command == 'plot':   # Generates figures shown in the paper with the help of data from the previous steps
         run_dir = args.pop('run_dir')
         plot_paper_figures(run_dir)
