@@ -16,4 +16,5 @@ WORKDIR ./p
 
 EXPOSE 8080
 
-ENTRYPOINT [ "python3", "manager.py"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "aistats2020", "python", "manager.py"]
+
