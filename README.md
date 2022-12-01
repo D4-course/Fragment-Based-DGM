@@ -112,7 +112,3 @@ If you wish to obtain similar figures as the ones in the paper on your samples, 
 `python manage.py plot --run <RUN_PATH>`
 
 where `<RUN_PATH>` is defined as described above.
-
-### Samples
-
-You can find the 20k SMILES samples used in the paper for the analysis in the SAMPLES folder.
