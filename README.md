@@ -3,6 +3,8 @@
 
 After making necessary changes we improved the overall pylint score of the codebase from 6 to 8.23.
 
+### Video presentation link - https://youtu.be/R_DJXKBOa1s
+
 # Code for the paper "A Deep Generative Model for Fragment-Based Molecule Generation" (AISTATS 2020)
 
 Links:  [Paper](http://proceedings.mlr.press/v108/podda20a/podda20a.pdf) - [AISTATS 2020 proceedings](http://proceedings.mlr.press/v108/)
